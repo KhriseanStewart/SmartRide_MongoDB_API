@@ -1,0 +1,273 @@
+{
+    "info": {
+      "_postman_id": "5f8ac129-1d5b-4f6c-9df4-3d3bf7b1e5a1",
+      "name": "SmartRide API (All Routes)",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      "description": "All currently defined routes from src/app.js and src/routes/*"
+    },
+    "variable": [
+      {
+        "key": "baseUrl",
+        "value": "http://localhost:8080"
+      },
+      {
+        "key": "userId",
+        "value": "your-user-id"
+      },
+      {
+        "key": "routeId",
+        "value": "your-route-id"
+      },
+      {
+        "key": "busId",
+        "value": "your-bus-id"
+      }
+    ],
+    "item": [
+      {
+        "name": "Health",
+        "item": [
+          {
+            "name": "GET /health",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": "{{baseUrl}}/health"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Users",
+        "item": [
+          {
+            "name": "POST /api/users",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"id\": \"{{userId}}\",\n  \"email\": \"user@example.com\",\n  \"full_name\": \"John Doe\",\n  \"smart_card_num\": \"123456\"\n}"
+              },
+              "url": "{{baseUrl}}/api/users"
+            }
+          },
+          {
+            "name": "GET /api/users/me",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "x-user-id",
+                  "value": "{{userId}}"
+                }
+              ],
+              "url": "{{baseUrl}}/api/users/me"
+            }
+          },
+          {
+            "name": "GET /api/users/me/favorites/live",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "x-user-id",
+                  "value": "{{userId}}"
+                }
+              ],
+              "url": "{{baseUrl}}/api/users/me/favorites/live"
+            }
+          },
+          {
+            "name": "POST /api/users/me/favorites",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "x-user-id",
+                  "value": "{{userId}}"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"routeId\": \"{{routeId}}\"\n}"
+              },
+              "url": "{{baseUrl}}/api/users/me/favorites"
+            }
+          },
+          {
+            "name": "DELETE /api/users/me/favorites/:routeId",
+            "request": {
+              "method": "DELETE",
+              "header": [
+                {
+                  "key": "x-user-id",
+                  "value": "{{userId}}"
+                }
+              ],
+              "url": "{{baseUrl}}/api/users/me/favorites/{{routeId}}"
+            }
+          },
+          {
+            "name": "POST /api/users/me/profile-image (form-data)",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "x-user-id",
+                  "value": "{{userId}}"
+                }
+              ],
+              "body": {
+                "mode": "formdata",
+                "formdata": [
+                  {
+                    "key": "image",
+                    "type": "file",
+                    "src": ""
+                  }
+                ]
+              },
+              "url": "{{baseUrl}}/api/users/me/profile-image"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Routes",
+        "item": [
+          {
+            "name": "GET /api/routes",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": "{{baseUrl}}/api/routes"
+            }
+          },
+          {
+            "name": "GET /api/routes/v2/live-eta",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": "{{baseUrl}}/api/routes/v2/live-eta"
+            }
+          },
+          {
+            "name": "GET /api/routes/:routeId/stops",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": "{{baseUrl}}/api/routes/{{routeId}}/stops"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Transactions",
+        "item": [
+          {
+            "name": "GET /api/transactions",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "x-user-id",
+                  "value": "{{userId}}"
+                }
+              ],
+              "url": "{{baseUrl}}/api/transactions"
+            }
+          },
+          {
+            "name": "POST /api/transactions",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "x-user-id",
+                  "value": "{{userId}}"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"receiver_id\": \"receiver-id\",\n  \"driver_id\": \"driver-id\",\n  \"route\": \"Route A\",\n  \"amount\": 250,\n  \"status\": \"completed\"\n}"
+              },
+              "url": "{{baseUrl}}/api/transactions"
+            }
+          },
+          {
+            "name": "POST /api/transactions/add",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "x-user-id",
+                  "value": "{{userId}}"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"amount\": 500\n}"
+              },
+              "url": "{{baseUrl}}/api/transactions/add"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Live",
+        "item": [
+          {
+            "name": "GET /api/live/buses",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": "{{baseUrl}}/api/live/buses"
+            }
+          },
+          {
+            "name": "PATCH /api/live/buses/:id",
+            "request": {
+              "method": "PATCH",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"current_lat\": 18.01234,\n  \"current_long\": -76.78901,\n  \"bearing\": 90\n}"
+              },
+              "url": "{{baseUrl}}/api/live/buses/{{busId}}"
+            }
+          },
+          {
+            "name": "GET /api/live/bus-routes/markers",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": "{{baseUrl}}/api/live/bus-routes/markers"
+            }
+          }
+        ]
+      }
+    ]
+  }
