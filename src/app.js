@@ -7,6 +7,8 @@ import userRoutes from "./routes/userRoutes.js";
 import routeRoutes from "./routes/routeRoutes.js";
 import transactionRoutes from "./routes/transactionRoutes.js";
 import liveRoutes from "./routes/liveRoutes.js";
+import adminRoutes from "./routes/admin.js";
+import authRoutes from "./routes/authRoutes.js";
 import { notFound } from "./middleware/notFound.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { connectDb } from "./config/db.js";
@@ -24,9 +26,11 @@ app.get("/health", (req, res) => {
 });
 
 app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/routes", routeRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/live", liveRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

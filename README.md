@@ -19,6 +19,9 @@ npm run dev
 
 ## Main endpoints
 - `GET /health`
+- `POST /api/auth/signup`
+- `POST /api/auth/login`
+- `POST /api/auth/change-password`
 - `POST /api/users` (upsert user)
 - `GET /api/users/me` (`x-user-id` header)
 - `POST /api/users/me/favorites`
@@ -42,42 +45,7 @@ npm run dev
 
 ---
 
-## TODO — Admin Website Routes
-> These endpoints need to be added to support the admin dashboard. Add them under `src/routes/admin.js` (or similar) and register with an `/api/admin` prefix.
+## Admin Website Routes
 
-### Users
-- [ ] `GET /api/admin/users` — list all users (paginated)
-- [ ] `GET /api/admin/users/:userId` — get a single user's full profile
-- [ ] `PATCH /api/admin/users/:userId` — update user details (e.g. name, smart card)
-- [ ] `DELETE /api/admin/users/:userId` — remove a user
-
-### Routes & Stops
-- [ ] `POST /api/admin/routes` — create a new bus route
-- [ ] `PATCH /api/admin/routes/:routeId` — update route details (name, status, etc.)
-- [ ] `DELETE /api/admin/routes/:routeId` — delete a route
-- [ ] `POST /api/admin/routes/:routeId/stops` — add a stop to a route
-- [ ] `PATCH /api/admin/routes/:routeId/stops/:stopId` — update a stop
-- [ ] `DELETE /api/admin/routes/:routeId/stops/:stopId` — remove a stop
-
-### Buses & Drivers
-- [ ] `GET /api/admin/buses` — list all buses with assigned driver info
-- [ ] `POST /api/admin/buses` — register a new bus
-- [ ] `PATCH /api/admin/buses/:busId` — update bus details (plate, route assignment, etc.)
-- [ ] `DELETE /api/admin/buses/:busId` — decommission a bus
-- [ ] `POST /api/admin/buses/:busId/assign-driver` — assign a driver to a bus
-- [ ] `GET /api/admin/drivers` — list all drivers
-
-### Transactions
-- [ ] `GET /api/admin/transactions` — list all transactions across all users (paginated, filterable by date/route/status)
-- [ ] `GET /api/admin/transactions/:transactionId` — get a single transaction
-- [ ] `PATCH /api/admin/transactions/:transactionId` — update transaction status
-
-### Analytics / Dashboard
-- [ ] `GET /api/admin/stats/overview` — total users, active buses, daily transactions count
-- [ ] `GET /api/admin/stats/transactions` — transaction volume over time (for charts)
-- [ ] `GET /api/admin/stats/routes` — ridership per route
-
-### Notes for the admin routes
-- Protect all `/api/admin/*` routes with an admin auth middleware (e.g. check a role claim or a separate admin token header).
-- Pagination should follow a consistent shape: `{ data: [], total, page, limit }`.
-- Filterable list endpoints should accept query params: `?page=1&limit=20&status=completed` etc.
+Admin dashboard endpoints are available under `/api/admin` and are protected with the `x-admin-token` header.
+Driver invites are available through `POST /api/admin/drivers/invite`.

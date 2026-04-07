@@ -23,12 +23,15 @@ async function listRouteStops(req, res, next) {
       .lean();
 
     const data = rows.map((row) => ({
+      route: row.route_id,
       stop_order: row.stop_order,
       dwell_minutes: row.dwell_minutes,
       is_pickup: row.is_pickup,
       is_dropoff: row.is_dropoff,
       locations: row.location_id,
     }));
+
+    console.log(data);
 
     res.json({ success: true, data });
   } catch (err) {
